@@ -14,7 +14,7 @@
     <script src="https://cdn.tailwindcss.com"></script>
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;700;900&display=swap');
-        body { font-family: 'Noto Sans TC', sans-serif; background-color: #f3f4f6; -webkit-tap-highlight-color: transparent; overscroll-behavior-y: contain; }
+        body { font-family: 'Noto Sans TC', sans-serif; background-color: #f3f4f6; -webkit-tap-highlight-color: transparent; overscroll-behavior-y: contain; scroll-behavior: smooth; }
         .no-scrollbar::-webkit-scrollbar { display: none; }
         .view-page { display: none; animation: fadeIn 0.3s ease-in-out; }
         .view-page.active { display: block; }
@@ -22,6 +22,7 @@
         .timeline-line::before { content: ''; position: absolute; left: 20px; top: 0; bottom: 0; width: 2px; background: #e5e7eb; z-index: 0; }
         .card-base { background: white; border-radius: 28px; padding: 1.25rem; box-shadow: 0 1px 3px rgba(0,0,0,0.05); border: 1px solid #f1f5f9; }
         .item-card.past { opacity: 0.6; filter: grayscale(80%); }
+        .nav-icon { width: 24px; height: 24px; stroke-width: 2; fill: none; stroke: currentColor; stroke-linecap: round; stroke-linejoin: round; }
     </style>
 </head>
 <body class="pb-36">
@@ -36,12 +37,16 @@
                         <p class="text-sm opacity-90 mt-0.5 font-medium">港 ➔ 台 ➔ 日 ➔ 青</p>
                     </div>
                 </div>
-                <a href="http://googleusercontent.com/photos.google.com/3" target="_blank" class="bg-white/20 p-2.5 rounded-full backdrop-blur-md active:bg-white/30">📸</a>
+                <a href="http://googleusercontent.com/photos.google.com/3" target="_blank" class="bg-white/20 p-2.5 rounded-full backdrop-blur-md active:bg-white/30">
+                    <svg class="nav-icon" viewBox="0 0 24 24"><path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"></path><circle cx="12" cy="13" r="4"></circle></svg>
+                </a>
             </div>
             
             <div class="mt-5 card-base text-gray-800 bg-white/95 backdrop-blur-sm space-y-4">
                 <div class="flex items-center gap-4">
-                    <div class="bg-blue-50 p-3 rounded-xl text-3xl" id="dashboard-weather-icon">✈️</div>
+                    <div class="bg-blue-50 p-3 rounded-xl text-[#007AFF]" id="dashboard-weather-icon">
+                        <svg class="w-8 h-8" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="4"></circle><path d="M12 2v2"></path><path d="M12 20v2"></path><path d="M4.93 4.93l1.41 1.41"></path><path d="M17.66 17.66l1.41 1.41"></path><path d="M2 12h2"></path><path d="M20 12h2"></path><path d="M4.93 19.07l1.41-1.41"></path><path d="M17.66 6.34l1.41-1.41"></path></svg>
+                    </div>
                     <div class="flex-1">
                         <p class="text-xs text-gray-500 font-bold tracking-wider" id="dashboard-status-label">距離出發</p>
                         <p id="dashboard-info" class="text-xl font-black text-[#007AFF]">計算中...</p>
@@ -54,14 +59,6 @@
                         <span id="progress-text" class="text-xs font-bold text-gray-600 mt-1 block">0%</span>
                     </div>
                 </div>
-                
-                <div id="weather-reminder" class="hidden bg-red-50 border border-red-100 p-4 rounded-xl flex items-center gap-3 text-red-900">
-                    <div class="text-3xl">⚠️</div>
-                    <div>
-                        <p class="font-bold text-sm">智慧天氣提醒</p>
-                        <p id="weather-reminder-msg" class="text-xs mt-0.5 opacity-90"></p>
-                    </div>
-                </div>
             </div>
 
             <div class="flex overflow-x-auto space-x-3 mt-6 no-scrollbar py-1" id="dateNav"></div>
@@ -69,7 +66,23 @@
         <main class="p-4" id="itinerary-content"></main>
     </div>
 
-    <div id="view-map" class="view-page"><header class="bg-gray-800 text-white p-6 sticky top-0 z-40 shadow-md rounded-b-[32px]"><h1 class="text-2xl font-black">景點指南</h1></header><main class="p-4 flex flex-col items-center mt-4 space-y-4"><div class="w-full card-base overflow-hidden p-0"><iframe id="gmap-iframe" class="w-full h-72 bg-gray-100" frameborder="0" style="border:0" allowfullscreen></iframe><div class="p-6"><h2 id="map-title" class="text-2xl font-bold text-gray-800 mb-2">請先選擇景點</h2><p id="map-desc" class="text-gray-600 text-sm mb-6">點擊行程卡片查看詳情。</p><div id="map-highlights-container" class="hidden mb-6 space-y-3"><label class="block text-xs font-bold text-gray-400 tracking-wider">必試貼士 (TIPS)</label><div id="map-highlights" class="bg-amber-50 border border-amber-100 p-4 rounded-xl text-amber-900 text-sm space-y-2"></div></div><div id="map-images-container" class="hidden mb-6"><label class="block text-xs font-bold text-gray-400 tracking-wider mb-2">參考圖片</label><div id="map-images" class="flex gap-2 overflow-x-auto no-scrollbar pb-2"></div></div><a id="gmap-ext-btn" href="#" target="_blank" class="w-full block text-center bg-[#007AFF] text-white font-bold py-3.5 rounded-xl shadow-md">在 Google Maps 打開</a></div></div></main></div>
+    <div id="view-map" class="view-page">
+        <header class="bg-gray-800 text-white p-6 sticky top-0 z-40 shadow-md rounded-b-[32px]"><h1 class="text-2xl font-black">景點指南</h1></header>
+        <main class="p-4 flex flex-col items-center mt-4 space-y-4">
+            <div class="w-full card-base overflow-hidden p-0">
+                <iframe id="gmap-iframe" class="w-full h-72 bg-gray-100" frameborder="0" style="border:0" allowfullscreen></iframe>
+                <div class="p-6">
+                    <h2 id="map-title" class="text-2xl font-bold text-gray-800 mb-2">請先選擇景點</h2>
+                    <p id="map-desc" class="text-gray-600 text-sm mb-6">點擊行程卡片查看詳情。</p>
+                    <div id="map-highlights-container" class="hidden mb-6 space-y-3">
+                        <label class="block text-xs font-bold text-gray-400 tracking-wider">必試貼士 (TIPS)</label>
+                        <div id="map-highlights" class="bg-amber-50 border border-amber-100 p-4 rounded-xl text-amber-900 text-sm space-y-2"></div>
+                    </div>
+                    <a id="gmap-ext-btn" href="#" target="_blank" class="w-full block text-center bg-[#007AFF] text-white font-bold py-3.5 rounded-xl shadow-md">在 Google Maps 打開</a>
+                </div>
+            </div>
+        </main>
+    </div>
 
     <div id="view-checklist" class="view-page">
         <header class="bg-purple-600 text-white p-6 sticky top-0 z-40 shadow-md rounded-b-[32px]">
@@ -77,26 +90,73 @@
             <p class="text-sm opacity-80 mt-1">全家一起檢查，不怕漏帶東西！</p>
         </header>
         <main class="p-4 mt-4 space-y-6">
-            <div id="checklist-weather-reminder" class="hidden bg-purple-50 border border-purple-100 p-4 rounded-xl flex items-center gap-3 text-purple-900">
-                <div class="text-3xl">☔</div>
-                <div>
-                    <p class="font-bold text-sm">天氣提示：建議攜帶</p>
-                    <p id="checklist-weather-msg" class="text-xs mt-0.5 opacity-90"></p>
-                </div>
-            </div>
-
             <div class="card-base">
-                <h3 class="text-lg font-bold text-purple-800 mb-4 flex items-center gap-2"><span>🛡️</span>公共物資</h3>
+                <h3 class="text-lg font-bold text-purple-800 mb-4 flex items-center gap-2"><svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10"></path></svg>公共物資</h3>
                 <div id="list-public" class="space-y-3"></div>
             </div>
             <div class="card-base">
-                <h3 class="text-lg font-bold text-purple-800 mb-4 flex items-center gap-2"><span>🎒</span>個人物資</h3>
+                <h3 class="text-lg font-bold text-purple-800 mb-4 flex items-center gap-2"><svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"></path></svg>個人物資</h3>
                 <div id="list-personal" class="space-y-3"></div>
             </div>
         </main>
     </div>
 
-    <div id="view-ledger" class="view-page"><header class="bg-red-600 text-white p-6 sticky top-0 z-40 shadow-md rounded-b-[32px]"><h1 class="text-2xl font-black">開支紀錄</h1></header><main class="p-4 mt-4 space-y-4"><div class="card-base bg-red-50 flex items-center justify-between"><div class="text-red-900"><p class="text-sm font-bold opacity-80">總支出 (HKD)</p><p id="ledger-total" class="text-4xl font-black mt-1">$ 0.00</p></div><div class="text-6xl">💰</div></div><div class="card-base space-y-3"><input type="text" id="ledger-name" placeholder="消費項目" class="w-full bg-gray-50 p-3 rounded-xl border border-gray-100"><div class="flex gap-2"><input type="number" id="ledger-amount" placeholder="金額" class="flex-1 bg-gray-50 p-3 rounded-xl border border-gray-100"><select id="ledger-curr" class="bg-gray-100 p-3 rounded-xl"><option value="0.0494">JPY</option><option value="0.2454">TWD</option><option value="1.1368">CNY</option><option value="1">HKD</option></select></div><button onclick="addLedgerEntry()" class="w-full bg-red-600 text-white font-bold py-3 rounded-xl">新增支出</button></div><div class="card-base"><div id="ledger-items" class="space-y-3 text-sm text-gray-700"></div></div></main></div>
+    <div id="view-ledger" class="view-page">
+        <header class="bg-red-600 text-white p-6 sticky top-0 z-40 shadow-md rounded-b-[32px]">
+            <h1 class="text-2xl font-black">開支紀錄</h1>
+            <p class="text-sm opacity-80 mt-1">詳細記錄每筆花費</p>
+        </header>
+        <main class="p-4 mt-4 space-y-4">
+            <div class="card-base bg-red-50 flex items-center justify-between border-red-100">
+                <div class="text-red-900">
+                    <p class="text-sm font-bold opacity-80">總支出 (HKD)</p>
+                    <p id="ledger-total" class="text-4xl font-black mt-1">$ 0.00</p>
+                </div>
+                <div class="text-red-300">
+                    <svg class="w-14 h-14" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="1.5"><path stroke-linecap="round" stroke-linejoin="round" d="M2.25 18.75a60.07 60.07 0 0115.797 2.101c.727.198 1.453-.342 1.453-1.096V18.75M3.75 4.5v.75A.75.75 0 013 6h-.75m0 0v-.375c0-.621.504-1.125 1.125-1.125H20.25M2.25 6v9m18-10.5v.75c0 .414.336.75.75.75h.75m-1.5-1.5h.375c.621 0 1.125.504 1.125 1.125v9.75c0 .621-.504 1.125-1.125 1.125h-.375m1.5-1.5H21a.75.75 0 00-.75.75v.75m0 0H3.75m0 0h-.375a1.125 1.125 0 01-1.125-1.125V15m1.5 1.5v-.75A.75.75 0 003 15h-.75M15 10.5a3 3 0 11-6 0 3 3 0 016 0z"></path></svg>
+                </div>
+            </div>
+            
+            <div class="card-base space-y-3">
+                <input type="text" id="ledger-name" placeholder="消費項目 (例：國產牛燒肉)" class="w-full bg-gray-50 p-3 rounded-xl border border-gray-100 focus:border-red-500 outline-none">
+                
+                <div class="flex gap-2">
+                    <input type="number" id="ledger-amount" placeholder="金額" class="flex-1 bg-gray-50 p-3 rounded-xl border border-gray-100 focus:border-red-500 outline-none">
+                    <select id="ledger-curr" class="bg-gray-100 p-3 rounded-xl font-bold text-gray-700 outline-none">
+                        <option value="JPY">JPY ¥</option>
+                        <option value="TWD">TWD NT$</option>
+                        <option value="CNY">CNY ¥</option>
+                        <option value="HKD">HKD $</option>
+                    </select>
+                </div>
+
+                <div class="flex gap-2">
+                    <select id="ledger-who" class="flex-1 bg-gray-100 p-3 rounded-xl font-medium text-gray-700 outline-none">
+                        <option value="公費">公費</option>
+                        <option value="爸爸">爸爸</option>
+                        <option value="媽媽">媽媽</option>
+                        <option value="長輩">長輩</option>
+                        <option value="小孩">小孩</option>
+                    </select>
+                    <select id="ledger-cat" class="flex-1 bg-gray-100 p-3 rounded-xl font-medium text-gray-700 outline-none">
+                        <option value="飲食">飲食 🍱</option>
+                        <option value="交通">交通 🚆</option>
+                        <option value="購物">購物 🛍️</option>
+                        <option value="住宿">住宿 🏨</option>
+                        <option value="玩樂">玩樂 🎡</option>
+                        <option value="其他">其他 📝</option>
+                    </select>
+                </div>
+
+                <button onclick="addLedgerEntry()" class="w-full bg-red-600 text-white font-bold py-3.5 rounded-xl active:bg-red-700 transition-colors">新增支出</button>
+            </div>
+            
+            <div class="card-base">
+                <h3 class="font-bold text-gray-800 mb-3">消費明細</h3>
+                <div id="ledger-items" class="space-y-3"></div>
+            </div>
+        </main>
+    </div>
 
     <div id="view-tools" class="view-page">
         <header class="bg-teal-600 text-white p-6 sticky top-0 z-40 shadow-md rounded-b-[32px]">
@@ -105,47 +165,76 @@
         </header>
         <main class="p-4 mt-4 space-y-6">
             <div class="card-base p-6">
-                <h3 class="font-bold text-teal-800 mb-4 flex items-center gap-2"><span>💱</span>匯率換算</h3>
-                <div class="flex items-center space-x-3 mb-4">
-                    <input type="number" id="calc-input" class="w-full text-2xl font-black bg-gray-50 rounded-xl p-3" value="1000" oninput="calculate()">
-                    <select id="calc-currency" class="text-sm font-bold bg-gray-100 rounded-xl p-3" onchange="calculate()"><option value="0.0494">JPY</option><option value="0.2454">TWD</option><option value="1.1368">CNY</option></select>
+                <h3 class="font-bold text-teal-800 mb-4 flex items-center gap-2">
+                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M12 6v12m-3-2.818l.879.659c1.171.879 3.07.879 4.242 0 1.172-.879 1.172-2.303 0-3.182C13.536 12.219 12.768 12 12 12c-.725 0-1.45-.22-2.003-.659-1.106-.879-1.106-2.303 0-3.182s2.9-.879 4.006 0l.415.33M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+                    雙向匯率換算
+                </h3>
+                
+                <div class="bg-gray-50 rounded-2xl p-4 border border-gray-100">
+                    <div class="flex items-center gap-3 mb-3">
+                        <select id="calc-from" class="bg-white border border-gray-200 text-sm font-bold rounded-lg p-2 outline-none" onchange="calculate()">
+                            <option value="JPY">JPY ¥</option>
+                            <option value="TWD">TWD NT$</option>
+                            <option value="CNY">CNY ¥</option>
+                            <option value="HKD">HKD $</option>
+                        </select>
+                        <svg class="w-5 h-5 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"></path></svg>
+                        <select id="calc-to" class="bg-white border border-gray-200 text-sm font-bold rounded-lg p-2 outline-none" onchange="calculate()">
+                            <option value="HKD" selected>HKD $</option>
+                            <option value="JPY">JPY ¥</option>
+                            <option value="TWD">TWD NT$</option>
+                            <option value="CNY">CNY ¥</option>
+                        </select>
+                    </div>
+                    <input type="number" id="calc-input" class="w-full text-3xl font-black bg-transparent border-b-2 border-teal-200 focus:border-teal-500 outline-none py-2 mb-4" value="1000" oninput="calculate()">
+                    
+                    <div class="flex items-baseline space-x-2 text-teal-700">
+                        <span id="calc-result-currency" class="text-lg font-bold">HKD</span>
+                        <span id="calc-result" class="text-4xl font-black">計算中...</span>
+                    </div>
                 </div>
-                <div class="w-full flex items-baseline space-x-2 text-teal-600 bg-teal-50 rounded-xl p-4 border border-teal-100"><span class="text-xl font-bold">HK$</span><span id="calc-result" class="text-3xl font-black">49.40</span></div>
             </div>
 
             <div class="card-base">
-                <h3 class="font-bold text-teal-800 mb-4 flex items-center gap-2"><span>🗣️</span>一鍵日語發音</h3>
+                <h3 class="font-bold text-teal-800 mb-4 flex items-center gap-2">
+                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M11 5.882V19.24a1.76 1.76 0 01-3.417.592l-2.147-6.15M18 13a3 3 0 100-6M5.436 13.683A4.001 4.001 0 017 6h1.832c4.1 0 7.625-1.234 9.168-3v14c-1.543-1.766-5.067-3-9.168-3H7a3.988 3.988 0 01-1.564-.317z"></path></svg>
+                    一鍵日語發音
+                </h3>
                 <div class="space-y-2">
-                    <button onclick="speakJapanese('Sumimasen, toire wa doko desu ka?')" class="w-full text-left bg-gray-50 p-3 rounded-xl border border-gray-100 flex justify-between items-center active:bg-teal-50"><span class="text-sm font-bold text-gray-700">請問廁所在哪裡？🚽</span><span class="text-xl">🔊</span></button>
-                    <button onclick="speakJapanese('Kore o kudasai.')" class="w-full text-left bg-gray-50 p-3 rounded-xl border border-gray-100 flex justify-between items-center active:bg-teal-50"><span class="text-sm font-bold text-gray-700">我要買這個。🛍️</span><span class="text-xl">🔊</span></button>
-                    <button onclick="speakJapanese('Negi wa irenaide kudasai.')" class="w-full text-left bg-gray-50 p-3 rounded-xl border border-gray-100 flex justify-between items-center active:bg-teal-50"><span class="text-sm font-bold text-gray-700">請不要加蔥。🍜</span><span class="text-xl">🔊</span></button>
-                </div>
-            </div>
-
-            <div class="card-base">
-                <h3 class="font-bold text-teal-800 mb-4 flex items-center gap-2"><span>🗺️</span>重要離線地圖 (沒網也能看)</h3>
-                <p class="text-xs text-gray-400 mb-3">點擊圖片可放大查看詳情。</p>
-                <div class="grid grid-cols-2 gap-3">
-                    <img src="https://via.placeholder.com/400x300/F0F0F0/000000?text=難波站出口地圖" alt="難波出口" onclick="openOfflineMap(this.src)" class="rounded-xl border border-gray-100 shadow-sm cursor-pointer object-cover h-28 w-full">
-                    <img src="https://via.placeholder.com/400x300/F0F0F0/000000?text=伊勢神宮區域圖" alt="伊勢神宮" onclick="openOfflineMap(this.src)" class="rounded-xl border border-gray-100 shadow-sm cursor-pointer object-cover h-28 w-full">
-                    <img src="https://via.placeholder.com/400x300/F0F0F0/000000?text=近鐵路線圖截圖" alt="近鐵路線" onclick="openOfflineMap(this.src)" class="rounded-xl border border-gray-100 shadow-sm cursor-pointer object-cover h-28 w-full">
-                    <img src="https://via.placeholder.com/400x300/F0F0F0/000000?text=青島地鐵路線圖" alt="青島地鐵" onclick="openOfflineMap(this.src)" class="rounded-xl border border-gray-100 shadow-sm cursor-pointer object-cover h-28 w-full">
+                    <button onclick="speakJapanese('Sumimasen, toire wa doko desu ka?')" class="w-full text-left bg-gray-50 p-4 rounded-xl border border-gray-100 flex justify-between items-center active:bg-teal-50 transition-colors">
+                        <span class="text-sm font-bold text-gray-700">請問廁所在哪裡？🚽</span>
+                        <svg class="w-6 h-6 text-teal-600" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M15.536 8.464a5 5 0 010 7.072m2.828-9.9a9 9 0 010 12.728M5.586 15H4a1 1 0 01-1-1v-4a1 1 0 011-1h1.586l4.707-4.707C10.923 3.663 12 4.109 12 5v14c0 .891-1.077 1.337-1.707.707L5.586 15z"></path></svg>
+                    </button>
+                    <button onclick="speakJapanese('Kore o kudasai.')" class="w-full text-left bg-gray-50 p-4 rounded-xl border border-gray-100 flex justify-between items-center active:bg-teal-50 transition-colors">
+                        <span class="text-sm font-bold text-gray-700">我要買這個。🛍️</span>
+                        <svg class="w-6 h-6 text-teal-600" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M15.536 8.464a5 5 0 010 7.072m2.828-9.9a9 9 0 010 12.728M5.586 15H4a1 1 0 01-1-1v-4a1 1 0 011-1h1.586l4.707-4.707C10.923 3.663 12 4.109 12 5v14c0 .891-1.077 1.337-1.707.707L5.586 15z"></path></svg>
+                    </button>
                 </div>
             </div>
         </main>
     </div>
 
-    <div id="offline-map-overlay" class="hidden fixed inset-0 bg-black/90 z-[100] p-4 flex items-center justify-center transition-all duration-300 opacity-0" onclick="closeOfflineMap()">
-        <img id="offline-map-big" src="" class="max-w-full max-h-full rounded-xl shadow-2xl">
-        <span class="absolute top-6 right-6 text-white/70 text-sm font-bold">點擊關閉</span>
-    </div>
-
     <nav id="bottom-nav" class="fixed bottom-6 left-1/2 transform -translate-x-1/2 w-[95%] max-w-md bg-[#F2F2F7]/95 backdrop-blur-xl rounded-[40px] flex justify-between items-center p-1.5 z-50 shadow-[0_8px_30px_rgba(0,0,0,0.15)] border border-white/50">
-        <button id="nav-itinerary" onclick="switchTab('itinerary')" class="nav-btn w-[19%] flex flex-col items-center justify-center py-2.5 rounded-[30px] bg-[#E1E1E6] text-[#007AFF]"><span class="text-[20px]">📅</span><span class="text-[10px] font-bold mt-1 tracking-tight">行程</span></button>
-        <button id="nav-map" onclick="switchTab('map')" class="nav-btn w-[19%] flex flex-col items-center justify-center py-2.5 rounded-[30px] text-gray-800"><span class="text-[20px]">⛩️</span><span class="text-[10px] font-bold mt-1 tracking-tight">指南</span></button>
-        <button id="nav-checklist" onclick="switchTab('checklist')" class="nav-btn w-[19%] flex flex-col items-center justify-center py-2.5 rounded-[30px] text-gray-800"><span class="text-[20px]">🎒</span><span class="text-[10px] font-bold mt-1 tracking-tight">行李</span></button>
-        <button id="nav-ledger" onclick="switchTab('ledger')" class="nav-btn w-[19%] flex flex-col items-center justify-center py-2.5 rounded-[30px] text-gray-800"><span class="text-[20px]">🧾</span><span class="text-[10px] font-bold mt-1 tracking-tight">開支</span></button>
-        <button id="nav-tools" onclick="switchTab('tools')" class="nav-btn w-[19%] flex flex-col items-center justify-center py-2.5 rounded-[30px] text-gray-800"><span class="text-[20px]">🧰</span><span class="text-[10px] font-bold mt-1 tracking-tight">工具</span></button>
+        <button id="nav-itinerary" onclick="switchTab('itinerary')" class="nav-btn w-[19%] flex flex-col items-center justify-center py-2.5 rounded-[30px] bg-[#E1E1E6] text-[#007AFF]">
+            <svg class="nav-icon" viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg>
+            <span class="text-[10px] font-bold mt-1 tracking-tight">行程</span>
+        </button>
+        <button id="nav-map" onclick="switchTab('map')" class="nav-btn w-[19%] flex flex-col items-center justify-center py-2.5 rounded-[30px] text-gray-500">
+            <svg class="nav-icon" viewBox="0 0 24 24"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path><circle cx="12" cy="10" r="3"></circle></svg>
+            <span class="text-[10px] font-bold mt-1 tracking-tight">指南</span>
+        </button>
+        <button id="nav-checklist" onclick="switchTab('checklist')" class="nav-btn w-[19%] flex flex-col items-center justify-center py-2.5 rounded-[30px] text-gray-500">
+            <svg class="nav-icon" viewBox="0 0 24 24"><path d="M9 11l3 3L22 4"></path><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"></path></svg>
+            <span class="text-[10px] font-bold mt-1 tracking-tight">行李</span>
+        </button>
+        <button id="nav-ledger" onclick="switchTab('ledger')" class="nav-btn w-[19%] flex flex-col items-center justify-center py-2.5 rounded-[30px] text-gray-500">
+            <svg class="nav-icon" viewBox="0 0 24 24"><rect x="4" y="4" width="16" height="16" rx="2" ry="2"></rect><rect x="9" y="9" width="6" height="6"></rect><line x1="9" y1="1" x2="9" y2="4"></line><line x1="15" y1="1" x2="15" y2="4"></line><line x1="9" y1="20" x2="9" y2="23"></line><line x1="15" y1="20" x2="15" y2="23"></line><line x1="20" y1="9" x2="23" y2="9"></line><line x1="20" y1="14" x2="23" y2="14"></line><line x1="1" y1="9" x2="4" y2="9"></line><line x1="1" y1="14" x2="4" y2="14"></line></svg>
+            <span class="text-[10px] font-bold mt-1 tracking-tight">開支</span>
+        </button>
+        <button id="nav-tools" onclick="switchTab('tools')" class="nav-btn w-[19%] flex flex-col items-center justify-center py-2.5 rounded-[30px] text-gray-500">
+            <svg class="nav-icon" viewBox="0 0 24 24"><circle cx="12" cy="12" r="3"></circle><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"></path></svg>
+            <span class="text-[10px] font-bold mt-1 tracking-tight">工具</span>
+        </button>
     </nav>
 
     <script>
@@ -157,7 +246,6 @@
             personal: ["護照/身分證", "行動電源", "好走路的鞋子", "手機充電線"] 
         };
 
-        // 已完美合併新舊資料，確保保留原有的 id、forecast 與 flightNo 等所有功能參數
         const tripData = [
             { date: "1/4", title: "出發：香港 ➔ 台灣", weatherQuery: "桃園", details: [
                 { id: "d1-1", time: "18:00", info: "抵達機場", type: "flight", query: "桃園國際機場", flightNo: "CX564", desc: "抵達台灣，準備開家族旅程。" }
@@ -210,6 +298,7 @@
 
         tripData.forEach(day => totalSpots += day.details.length);
         let checkins = JSON.parse(localStorage.getItem('checkins')) || [];
+        let ledgerData = JSON.parse(localStorage.getItem('ledgerData')) || [];
 
         function renderItinerary() {
             const nav = document.getElementById('dateNav');
@@ -224,12 +313,12 @@
                 btn.onclick = () => showDay(index);
                 let btnClass = "flex-shrink-0 px-5 py-2.5 rounded-full text-sm font-black transition-all shadow-sm ";
                 if (isTodayStr) btnClass += "bg-[#34C759] text-white"; 
-                else if (index === 0) btnClass += "bg-white text-[#007AFF] shadow-md border border-gray-100"; 
-                else btnClass += "bg-[#333]/10 text-gray-800"; 
+                else if (index === 0) btnClass += "bg-[#007AFF] text-white shadow-md"; 
+                else btnClass += "bg-white text-gray-800 border border-gray-100"; 
                 btn.className = btnClass; btn.innerText = day.date; nav.appendChild(btn);
 
                 const card = document.createElement('div');
-                card.className = `day-card ${index === 0 ? 'active' : ''}`;
+                card.className = `day-card w-full pb-6`; // removed 'active' logic from css hiding, all render to allow scroll
                 card.id = `day-${index}`;
                 
                 let itemsHtml = day.details.map(item => {
@@ -237,22 +326,22 @@
                     const isChecked = checkins.includes(item.id);
                     
                     const flightBtnHtml = item.type === 'flight' && item.flightNo ? 
-                        `<a href="https://flightaware.com/live/flight/${item.flightNo}" target="_blank" class="mt-3 inline-block bg-blue-100 text-[#007AFF] text-xs font-bold px-3 py-1.5 rounded-lg active:bg-blue-200">✈️ 追蹤航班 ${item.flightNo}</a>` : '';
+                        `<a href="https://flightaware.com/live/flight/${item.flightNo}" target="_blank" class="mt-3 inline-flex items-center gap-1 bg-blue-50 text-[#007AFF] text-xs font-bold px-3 py-1.5 rounded-lg border border-blue-100"><svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"></path></svg>追蹤航班 ${item.flightNo}</a>` : '';
 
                     return `
                         <div class="item-card relative pl-12 mb-6 ${isPast ? 'past' : ''}">
-                            <div class="icon-box absolute left-0 top-1 w-10 h-10 flex items-center justify-center bg-white rounded-full border-2 border-blue-200 shadow-sm z-10 text-xl cursor-pointer" onclick="openMap('${item.query}', '${item.desc || item.info}', '${item.tips ? item.tips.join('##') : ''}')">
-                                ${getIcon(item.type)}
+                            <div class="absolute left-0 top-1 w-10 h-10 flex items-center justify-center bg-white rounded-full border-2 border-[#007AFF] shadow-sm z-10 text-[#007AFF] cursor-pointer" onclick="openMap('${item.query}', '${item.desc || item.info}', '${item.tips ? item.tips.join('##') : ''}')">
+                                ${getSvgIcon(item.type)}
                             </div>
-                            <div class="bg-white p-5 rounded-3xl shadow-sm border border-gray-100 border-l-[6px] ${isPast ? 'border-l-gray-300' : 'border-l-[#007AFF]'}">
+                            <div class="bg-white p-5 rounded-3xl shadow-sm border border-gray-100">
                                 <div class="flex justify-between items-start">
-                                    <span class="time-tag text-xs font-black ${isPast ? 'bg-gray-100 text-gray-600' : 'bg-blue-50 text-[#007AFF]'} px-3 py-1.5 rounded-full font-bold cursor-pointer">${item.time}</span>
-                                    <label class="flex items-center gap-1.5 cursor-pointer bg-gray-50 px-2 py-1 rounded-md border border-gray-100">
+                                    <span class="text-xs font-black ${isPast ? 'bg-gray-100 text-gray-600' : 'bg-blue-50 text-[#007AFF]'} px-3 py-1.5 rounded-full font-bold">${item.time}</span>
+                                    <label class="flex items-center gap-1.5 cursor-pointer bg-gray-50 px-2 py-1.5 rounded-lg border border-gray-100">
                                         <input type="checkbox" ${isChecked ? 'checked' : ''} onchange="toggleCheckin('${item.id}', this.checked)" class="w-4 h-4 accent-green-500">
                                         <span class="text-[10px] font-bold text-gray-500">打卡</span>
                                     </label>
                                 </div>
-                                <p class="text-gray-900 mt-2.5 font-bold text-lg leading-snug cursor-pointer" onclick="openMap('${item.query}', '${item.desc || item.info}', '${item.tips ? item.tips.join('##') : ''}')">${item.info}</p>
+                                <p class="text-gray-900 mt-3 font-bold text-lg leading-snug cursor-pointer" onclick="openMap('${item.query}', '${item.desc || item.info}', '${item.tips ? item.tips.join('##') : ''}')">${item.info}</p>
                                 ${flightBtnHtml}
                             </div>
                         </div>
@@ -260,15 +349,125 @@
                 }).join('');
 
                 card.innerHTML = `
-                    <div class="mb-7 ml-3 flex items-center justify-between">
-                        <div><h2 class="text-3xl font-black text-gray-900">${day.title}</h2></div>
-                        ${isTodayStr ? '<span class="text-xs bg-green-100 text-green-700 px-3 py-1.5 rounded-full font-black">今天</span>' : ''}
+                    <div class="mb-6 ml-3 flex items-center justify-between">
+                        <div><h2 class="text-2xl font-black text-gray-900 tracking-tight">${day.title}</h2></div>
+                        ${isTodayStr ? '<span class="text-xs bg-green-100 text-green-700 px-3 py-1 rounded-full font-black">今天</span>' : ''}
                     </div>
                     <div class="relative timeline-line">${itemsHtml}</div>
                 `;
                 content.appendChild(card);
             });
             updateProgress();
+        }
+
+        function getSvgIcon(type) {
+            const icons = {
+                flight: '<svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M12 19l9 2-9-18-9 18 9-2zm0 0v-8"></path></svg>',
+                transport: '<svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M8 7h8M8 11h8M12 21a9 9 0 110-18 9 9 0 010 18z"></path></svg>',
+                food: '<svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M21 15a2 2 0 01-2 2H7l-4 4V5a2 2 0 012-2h14a2 2 0 012 2v10z"></path></svg>', // Using general icon to save size, replace as needed
+                hotel: '<svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4"></path></svg>',
+                sight: '<svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z"></path></svg>',
+                shopping: '<svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z"></path></svg>'
+            };
+            return icons[type] || '<svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"></path><path stroke-linecap="round" stroke-linejoin="round" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"></path></svg>';
+        }
+
+        function showDay(index) {
+            // Smooth scroll to the specific day with an offset for the header
+            const target = document.getElementById(`day-${index}`);
+            if(target) {
+                const headerOffset = 180; // height of the sticky header roughly
+                const elementPosition = target.getBoundingClientRect().top;
+                const offsetPosition = elementPosition + window.pageYOffset - headerOffset;
+                
+                window.scrollTo({
+                    top: offsetPosition,
+                    behavior: "smooth"
+                });
+            }
+
+            // Update button UI
+            document.querySelectorAll('#dateNav button').forEach(b => { 
+                if(!b.classList.contains('bg-[#34C759]')) {
+                    b.className = "flex-shrink-0 px-5 py-2.5 rounded-full text-sm font-black transition-all shadow-sm bg-white text-gray-800 border border-gray-100"; 
+                }
+            });
+            const activeBtn = document.getElementById(`btn-${index}`);
+            if(!activeBtn.classList.contains('bg-[#34C759]')) {
+                activeBtn.className = "flex-shrink-0 px-5 py-2.5 rounded-full text-sm font-black transition-all shadow-sm bg-[#007AFF] text-white shadow-md";
+            }
+        }
+
+        // --- Currency Converter (Two-way logic) ---
+        function calculate() {
+            // Base logic relative to HKD (1 HKD = X Foreign)
+            // Or Foreign to HKD (1 Foreign = X HKD)
+            const ratesToHkd = { HKD: 1, JPY: 0.051, TWD: 0.245, CNY: 1.08 }; // Using approx updated rates
+            
+            const amt = parseFloat(document.getElementById('calc-input').value) || 0;
+            const fromCurr = document.getElementById('calc-from').value;
+            const toCurr = document.getElementById('calc-to').value;
+            
+            // Convert input to HKD first, then HKD to target
+            const amtInHkd = amt * ratesToHkd[fromCurr];
+            const result = amtInHkd / ratesToHkd[toCurr];
+            
+            document.getElementById('calc-result').innerText = result.toFixed(2);
+            document.getElementById('calc-result-currency').innerText = toCurr;
+        }
+
+        // --- Advanced Ledger (記帳) Logic ---
+        function addLedgerEntry() {
+            const name = document.getElementById('ledger-name').value.trim();
+            const amount = parseFloat(document.getElementById('ledger-amount').value);
+            const curr = document.getElementById('ledger-curr').value;
+            const who = document.getElementById('ledger-who').value;
+            const cat = document.getElementById('ledger-cat').value;
+            
+            if(!name || !amount) { alert("請填寫項目與金額！"); return; }
+
+            const now = new Date();
+            const timeStr = `${now.getMonth()+1}/${now.getDate()} ${now.getHours().toString().padStart(2, '0')}:${now.getMinutes().toString().padStart(2, '0')}`;
+
+            const ratesToHkd = { HKD: 1, JPY: 0.051, TWD: 0.245, CNY: 1.08 };
+            const hkdAmount = amount * ratesToHkd[curr];
+
+            ledgerData.unshift({ name, amount, curr, hkdAmount, who, cat, timeStr });
+            localStorage.setItem('ledgerData', JSON.stringify(ledgerData));
+            
+            // Clear inputs
+            document.getElementById('ledger-name').value = '';
+            document.getElementById('ledger-amount').value = '';
+            
+            renderLedger();
+        }
+
+        function renderLedger() {
+            const container = document.getElementById('ledger-items');
+            container.innerHTML = '';
+            let totalHkd = 0;
+
+            ledgerData.forEach((item, idx) => {
+                totalHkd += item.hkdAmount;
+                container.innerHTML += `
+                    <div class="flex justify-between items-center p-3 border-b border-gray-100 last:border-0">
+                        <div>
+                            <p class="font-bold text-gray-800">${item.name}</p>
+                            <p class="text-xs text-gray-500 mt-1 flex gap-2">
+                                <span class="bg-gray-100 px-2 py-0.5 rounded">${item.who}</span>
+                                <span class="bg-gray-100 px-2 py-0.5 rounded">${item.cat}</span>
+                                <span>${item.timeStr}</span>
+                            </p>
+                        </div>
+                        <div class="text-right">
+                            <p class="font-black text-red-600">${item.curr} ${item.amount}</p>
+                            <p class="text-[10px] text-gray-400">≈ HKD ${item.hkdAmount.toFixed(1)}</p>
+                        </div>
+                    </div>
+                `;
+            });
+
+            document.getElementById('ledger-total').innerText = `$ ${totalHkd.toFixed(2)}`;
         }
 
         function toggleCheckin(id, isChecked) {
@@ -283,171 +482,30 @@
             document.getElementById('progress-text').innerText = `${percent}%`;
         }
 
-        function speakJapanese(text) {
-            if ('speechSynthesis' in window) {
-                const utterance = new SpeechSynthesisUtterance(text);
-                utterance.lang = 'ja-JP'; utterance.rate = 0.9;
-                window.speechSynthesis.speak(utterance);
-            } else { alert("瀏覽器不支援語音。"); }
-        }
-
-        function openMap(query, desc, tipsStr) {
-            switchTab('map');
-            document.getElementById('map-title').innerText = query;
-            document.getElementById('map-desc').innerText = desc;
-            const tips = tipsStr ? tipsStr.split('##') : [];
-            const tipCont = document.getElementById('map-highlights-container');
-            const tipsList = document.getElementById('map-highlights');
-            tipsList.innerHTML = '';
-            if (tips.length > 0 && tips[0] !== "") {
-                tipCont.classList.remove('hidden');
-                tips.forEach(t => tipsList.innerHTML += `<p class="flex gap-2"><span class="text-amber-500">★</span><span>${t}</span></p>`);
-            } else tipCont.classList.add('hidden');
-            document.getElementById('gmap-iframe').src = `https://www.google.com/maps?q=${encodeURIComponent(query)}&t=&z=15&ie=UTF8&iwloc=&output=embed`;
-            document.getElementById('gmap-ext-btn').href = `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(query)}`;
-        }
-
-        function openOfflineMap(src) {
-            const overlay = document.getElementById('offline-map-overlay');
-            const bigImg = document.getElementById('offline-map-big');
-            bigImg.src = src;
-            overlay.classList.remove('hidden');
-            setTimeout(() => overlay.classList.add('opacity-100'), 10);
-        }
-
-        function closeOfflineMap() {
-            const overlay = document.getElementById('offline-map-overlay');
-            overlay.classList.remove('opacity-100');
-            setTimeout(() => overlay.classList.add('hidden'), 300);
-        }
-
-        function updateSmartDashboard() {
-            const tripStart = new Date(2026, 3, 1);
-            const diffDays = Math.ceil((tripStart - TODAY) / (1000 * 60 * 60 * 24));
-            let weatherQuery = "香港";
-
-            if (diffDays > 0) { document.getElementById('dashboard-info').innerText = `${diffDays} 天`; }
-            else if (diffDays === 0) { document.getElementById('dashboard-info').innerText = "就是今天！"; weatherQuery = "台灣"; }
-            else if (diffDays > -12) { 
-                document.getElementById('dashboard-info').innerText = `第 ${Math.abs(diffDays) + 1} 天`;
-                const todayData = tripData.find(d => getIsToday(d.date));
-                if (todayData) weatherQuery = todayData.weatherQuery;
-            } else { document.getElementById('dashboard-info').innerText = "旅途結束"; }
-            
-            document.getElementById('dashboard-weather-icon').innerText = weatherQuery === "香港" ? '🏠' : '☀️';
-
-            const reminderCont = document.getElementById('weather-reminder');
-            const reminderMsg = document.getElementById('weather-reminder-msg');
-            
-            const checklistWeatherCont = document.getElementById('checklist-weather-reminder');
-            const checklistWeatherMsg = document.getElementById('checklist-weather-msg');
-
-            const publicUl = document.getElementById('list-public');
-            const personalUl = document.getElementById('list-personal');
-            publicUl.innerHTML = ''; personalUl.innerHTML = '';
-            checklistData.public.forEach((item, i) => renderListItem(publicUl, `pub_${i}`, item));
-            
-            let finalPersonalList = [...checklistData.personal];
-
-            const upcomingDays = tripData.filter(d => {
-                const parts = d.date.split('/');
-                const tripDate = new Date(2026, parts[1]-1, parts[0]);
-                const diffTime = tripDate - TODAY;
-                const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
-                return diffDays >= 0 && diffDays <= 2;
-            });
-
-            let smartItems = [];
-            let reminderTexts = [];
-
-            upcomingDays.forEach(day => {
-                if (day.details.some(item => item.forecast === "rain")) {
-                    if (!smartItems.includes("雨傘/雨衣")) {
-                        smartItems.push("雨傘/雨衣");
-                        reminderTexts.push(`🌧️ ${day.date} ${day.weatherQuery} 預報有雨，請記得帶傘！`);
-                    }
-                }
-                if (day.details.some(item => item.forecast === "cold")) {
-                    if (!smartItems.includes("保暖外套")) {
-                        smartItems.push("保暖外套");
-                        reminderTexts.push(`❄️ ${day.date} ${day.weatherQuery} 氣溫偏低(模擬12°C)，請記得保暖外套！`);
-                    }
-                }
-            });
-
-            if (reminderTexts.length > 0) {
-                reminderCont.classList.remove('hidden');
-                reminderMsg.innerText = reminderTexts[0];
-
-                checklistWeatherCont.classList.remove('hidden');
-                checklistWeatherMsg.innerText = smartItems.join('、');
-                
-                smartItems.forEach(item => {
-                    finalPersonalList.unshift(`⭐${item}`); 
-                });
-            } else {
-                reminderCont.classList.add('hidden');
-                checklistWeatherCont.classList.add('hidden');
-            }
-
-            finalPersonalList.forEach((item, i) => renderListItem(personalUl, `pers_${i}`, item, item.startsWith('⭐')));
-        }
-
         function getIsToday(dStr) { const p = dStr.split('/'); return new Date(2026, p[1]-1, p[0]).toDateString() === TODAY.toDateString(); }
         function getIsPast(dStr, tStr) { return false; }
-        function getIcon(type) { return {flight:'✈️', transport:'🚆', food:'🍱', hotel:'🏨', sight:'🏯', shopping:'🛍️'}[type] || '📍'; }
-        
-        function calculate() {
-            const amt = parseFloat(document.getElementById('calc-input').value) || 0;
-            const rate = parseFloat(document.getElementById('calc-currency').value);
-            document.getElementById('calc-result').innerText = (amt * rate).toFixed(2);
-        }
-
-        function renderListItem(container, id, text, isSmart = false) {
-            const li = document.createElement('label');
-            li.className = `flex items-center gap-3 bg-gray-50 p-3 rounded-xl ${isSmart ? 'border border-purple-100 bg-purple-50' : ''}`;
-            const isChecked = localStorage.getItem(`chk_${id}`) === 'true';
-            li.innerHTML = `<input type="checkbox" id="chk_${id}" ${isChecked ? 'checked' : ''} onchange="saveCheckState('${id}', this.checked)" class="w-5 h-5 ${isSmart ? 'accent-purple-600' : 'accent-purple-600'} rounded"><span class="text-gray-800 font-medium ${isChecked ? 'line-through text-gray-400' : ''} ${isSmart ? 'text-purple-900 font-bold' : ''}">${text}</span>`;
-            container.appendChild(li);
-        }
-
-        function saveCheckState(id, isChecked) {
-            localStorage.setItem(`chk_${id}`, isChecked);
-            const label = document.getElementById(`chk_${id}`).parentElement;
-            label.querySelector('span').classList.toggle('line-through', isChecked);
-            label.querySelector('span').classList.toggle('text-gray-400', isChecked);
-        }
 
         function switchTab(tabId) {
             document.querySelectorAll('.view-page').forEach(el => el.classList.remove('active'));
             document.getElementById(`view-${tabId}`).classList.add('active');
-            document.querySelectorAll('.nav-btn').forEach(btn => { btn.className = "nav-btn w-[19%] flex flex-col items-center justify-center py-2.5 rounded-[30px] text-gray-800 transition-all"; });
-            document.getElementById(`nav-${tabId}`).className = "nav-btn w-[19%] flex flex-col items-center justify-center py-2.5 rounded-[30px] bg-[#E1E1E6] text-[#007AFF] transition-all shadow-inner";
-            window.scrollTo(0, 0);
+            
+            // Reset nav styles
+            document.querySelectorAll('.nav-btn').forEach(btn => { 
+                btn.classList.remove('text-[#007AFF]', 'bg-[#E1E1E6]');
+                btn.classList.add('text-gray-500');
+            });
+            // Set active nav style
+            const activeNav = document.getElementById(`nav-${tabId}`);
+            activeNav.classList.remove('text-gray-500');
+            activeNav.classList.add('text-[#007AFF]', 'bg-[#E1E1E6]');
+            
+            window.scrollTo({top: 0, behavior: "smooth"});
         }
 
-        function showDay(index) {
-            document.querySelectorAll('.day-card').forEach(c => c.classList.remove('active'));
-            document.getElementById(`day-${index}`).classList.add('active');
-            document.querySelectorAll('#dateNav button').forEach(b => { b.className = "flex-shrink-0 px-5 py-2.5 rounded-full text-sm font-black transition-all shadow-sm bg-[#333]/10 text-gray-800"; });
-            document.getElementById(`btn-${index}`).className = "flex-shrink-0 px-5 py-2.5 rounded-full text-sm font-black transition-all shadow-sm bg-white text-[#007AFF] shadow-md border border-gray-100";
-        }
-
-        function initPwa() {
-            const manifest = {
-                "name": "2026 家族旅行 PRO", "short_name": "家族旅行", "start_url": ".", "display": "standalone",
-                "background_color": "#f3f4f6", "theme_color": "#007AFF",
-                "icons": [{ "src": "icon.jpeg", "sizes": "512x512", "type": "image/jpeg" }]
-            };
-            document.getElementById('pwa-manifest').setAttribute('href', URL.createObjectURL(new Blob([JSON.stringify(manifest)], {type: 'application/json'})));
-        }
-
+        // Initialize Everything
         renderItinerary();
         calculate();
-        initPwa();
-        
-        setTimeout(updateSmartDashboard, 100);
-
+        renderLedger();
     </script>
 </body>
 </html>
